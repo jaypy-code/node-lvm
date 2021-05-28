@@ -1,15 +1,16 @@
 {
-  "name": "node-lvm",
-  "version": "4.0.2",
+  "name": "lvm-node",
+  "version": "0.0.2",
   "description": "Simple Node Logical Volume Manager",
   "main": "index.js",
   "typings": "./types/index.d.ts",
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IliaIdakiev/node-lvm.git"
+    "url": "git+https://github.com/jaypy-code/node-lvm.git"
   },
   "keywords": [
     "LVM",
@@ -17,12 +18,12 @@
     "Volume",
     "Manager"
   ],
-  "author": "= <=>",
+  "author": "JayPY Code <jaypy.code@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IliaIdakiev/node-lvm/issues"
+    "url": "https://github.com/jaypy-code/node-lvm/issues"
   },
-  "homepage": "https://github.com/IliaIdakiev/node-lvm#readme",
+  "homepage": "https://github.com/jaypy-code/node-lvm#readme",
   "devDependencies": {
     "typescript": "^4.2.4"
   }

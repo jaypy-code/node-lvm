@@ -36,7 +36,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var createLogicalVolume = (name, sizeGB, groupName, cmdInput, data) =>
-        spawn('lvcreate', ['-L', `${sizeGB}G`, '-n', name, groupName], cmdInput)
+        spawn('lvcreate', ['-L', `${sizeGB}G`, '-n', name, groupName, '-y'], cmdInput)
             .then(preparePayload(data));
 
     /**
@@ -48,7 +48,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var formatLogicalVolume = (name, groupName, fileSystem, physicalVolumeLocation, data) =>
-        spawn('mkfs', ['-t', fileSystem, `${physicalVolumeLocation}/${groupName}/${name}`])
+        spawn('mkfs', ['-t', fileSystem, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
             .then(preparePayload(data))
 
     /**
@@ -80,7 +80,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var extendVolumeWith = (name, groupName, physicalVolumeLocation, newSize, data) =>
-        spawn('lvextend', [`-L+${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`])
+        spawn('lvextend', [`-L+${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
             .then(preparePayload(data))
 
     /**
@@ -92,7 +92,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var extendVolumeTo = (name, groupName, physicalVolumeLocation, newSize, data) =>
-        spawn('lvextend', [`-L`, `${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`])
+        spawn('lvextend', [`-L`, `${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
             .then(preparePayload(data))
 
     /**
@@ -104,7 +104,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var reduceVolumeWith = (name, groupName, physicalVolumeLocation, newSize, data) =>
-        spawn('lvreduce', ['-f', `-L-${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`])
+        spawn('lvreduce', ['-f', `-L-${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
             .then(preparePayload(data))
 
     /**
@@ -116,7 +116,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var reduceVolumeTo = (name, groupName, physicalVolumeLocation, newSize, data) =>
-        spawn('lvreduce', ['-f', `-L`, `${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`])
+        spawn('lvreduce', ['-f', `-L`, `${newSize}G`, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
             .then(preparePayload(data))
 
     /**
@@ -129,7 +129,7 @@ module.exports = (function () {
     */
     var removeVolume = (mountPath, name, groupName, physicalVolumeLocation, data) =>
         spawn('umount', [mountPath]).then(
-            result => spawn('lvremove', ['-f', `${physicalVolumeLocation}/${groupName}/${name}`])
+            result => spawn('lvremove', ['-f', `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
                 .then(preparePayload(data, result))
         )
 
@@ -137,7 +137,7 @@ module.exports = (function () {
      * @param {string} groupName name of the volume group
      * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
      */
-    var removeVolumeGroup = (groupName, data) => spawn('vgremove', [groupName]).then(preparePayload(data))
+    var removeVolumeGroup = (groupName, data) => spawn('vgremove', [groupName, '-y']).then(preparePayload(data))
 
 
     return {

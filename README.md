@@ -2,12 +2,12 @@
 
 Install:
 ```
-npm install node-lvm
+npm install lvm-node
 ```
 
 Usage:
 ```js
-var lvm = require('node-lvm');
+var lvm = require('lvm-node');
 
 //1. Create (format) new physical volume (PV)
 //Storage devices must be formated as a physical volume before it can participate in the LVM infrastructure
