@@ -48,7 +48,7 @@ module.exports = (function () {
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
     var formatLogicalVolume = (name, groupName, fileSystem, physicalVolumeLocation, data) =>
-        spawn('mkfs', ['-t', fileSystem, `${physicalVolumeLocation}/${groupName}/${name}`, '-y'])
+        spawn('mkfs', ['-t', fileSystem, `${physicalVolumeLocation}/${groupName}/${name}`])
             .then(preparePayload(data))
 
     /**
