@@ -29,14 +29,14 @@ module.exports = (function () {
     /*3. Create the logical volume*/
     /**
     * @param {string} name logical volume name
-    * @param {string|number} sizeGB size of the LV
+    * @param {string|number} size size of the LV
     * @param {string} groupName name of the volume group
     * @param {string} [cmdInput] lvcreate cmd input
     * @param {any} [data] data to be passed to promise resolve func.
     * @return {Promise<{ data: any, result: string }>} Promise if resolved it will contain the data that was passed to the fn and the cmd result
     */
-    var createLogicalVolume = (name, sizeGB, groupName, cmdInput, data) =>
-        spawn('lvcreate', ['-L', `${sizeGB}G`, '-n', name, groupName, '-y'], cmdInput)
+    var createLogicalVolume = (name, size, groupName, cmdInput, data) =>
+        spawn('lvcreate', ['-L', `${size}`, '-n', name, groupName, '-y'], cmdInput)
             .then(preparePayload(data));
 
     /**
